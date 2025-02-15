@@ -1,5 +1,20 @@
 import sys
 import logging
+import os
+
+# 🔹 Ensure logs directory exists
+log_folder = "logs"
+os.makedirs(log_folder, exist_ok=True)
+
+# 🔹 Configure logging
+log_file = os.path.join(log_folder, "error.log")
+logging.basicConfig(
+    filename=log_file,
+    level=logging.INFO,
+    format="%(asctime)s - %(levelname)s - %(message)s"
+)
+
+from src.logger import logging  # ✅ Import after configuring logging
 
 def error_message_detail(error, error_detail: sys):
     _, _, exc_tb = error_detail.exc_info()
@@ -14,5 +29,5 @@ class CustomException(Exception):
 
     def __str__(self):
         return self.error_message
-
+    
 
